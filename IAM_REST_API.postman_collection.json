@@ -1,0 +1,919 @@
+{
+  "info": {
+    "_postman_id": "iam-rest-api-collection",
+    "name": "IAM REST API",
+    "description": "Complete CRUD API for User and Group Management with SQLite Integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Home",
+      "item": [
+        {
+          "name": "Get API Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "Get API information and version"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/",
+                  "host": ["{{base_url}}"],
+                  "path": [""]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"IAM REST API\",\n  \"version\": \"1.0\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"]
+            },
+            "description": "Retrieve all users from the system"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": 1,\n    \"username\": \"john\",\n    \"email\": \"john@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"groups\": [\n      {\n        \"id\": 1,\n        \"name\": \"Admins\"\n      }\n    ]\n  },\n  {\n    \"id\": 2,\n    \"username\": \"alice\",\n    \"email\": \"alice@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"groups\": []\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Single User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1"]
+            },
+            "description": "Retrieve a specific user by ID"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": 1,\n  \"username\": \"john\",\n  \"email\": \"john@example.com\",\n  \"is_enabled\": true,\n  \"created_at\": \"2026-02-17T10:30:00.000000\",\n  \"updated_at\": \"2026-02-17T10:30:00.000000\",\n  \"groups\": [\n    {\n      \"id\": 1,\n      \"name\": \"Admins\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/999",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "999"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"bob\",\n  \"email\": \"bob@example.com\",\n  \"is_enabled\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"]
+            },
+            "description": "Create a new user"
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"bob\",\n  \"email\": \"bob@example.com\",\n  \"is_enabled\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": 3,\n  \"username\": \"bob\",\n  \"email\": \"bob@example.com\",\n  \"is_enabled\": true,\n  \"created_at\": \"2026-02-17T10:30:00.000000\",\n  \"updated_at\": \"2026-02-17T10:30:00.000000\",\n  \"groups\": []\n}"
+            },
+            {
+              "name": "400 Bad Request - Missing Fields",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"bob\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "body": "{\n  \"error\": \"Username and email are required\"\n}"
+            },
+            {
+              "name": "409 Conflict - Duplicate Username",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"john\",\n  \"email\": \"different@example.com\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "body": "{\n  \"error\": \"Username already exists\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1"]
+            },
+            "description": "Update user information"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"john.doe@example.com\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/users/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": 1,\n  \"username\": \"john\",\n  \"email\": \"john.doe@example.com\",\n  \"is_enabled\": true,\n  \"created_at\": \"2026-02-17T10:30:00.000000\",\n  \"updated_at\": \"2026-02-17T10:31:00.000000\",\n  \"groups\": [\n    {\n      \"id\": 1,\n      \"name\": \"Admins\"\n    }\n  ]\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"new@example.com\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/users/999",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "999"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1"]
+            },
+            "description": "Delete a user from the system"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"User deleted successfully\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/999",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "999"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Enable User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/1/enable",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "enable"]
+            },
+            "description": "Enable a disabled user"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1/enable",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1", "enable"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"User enabled successfully\",\n  \"user\": {\n    \"id\": 1,\n    \"username\": \"john\",\n    \"email\": \"john@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:32:00.000000\",\n    \"groups\": []\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Disable User",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/1/disable",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "disable"]
+            },
+            "description": "Disable an enabled user"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1/disable",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1", "disable"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"User disabled successfully\",\n  \"user\": {\n    \"id\": 1,\n    \"username\": \"john\",\n    \"email\": \"john@example.com\",\n    \"is_enabled\": false,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:32:00.000000\",\n    \"groups\": []\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Groups",
+      "item": [
+        {
+          "name": "Get All Groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/groups",
+              "host": ["{{base_url}}"],
+              "path": ["api", "groups"]
+            },
+            "description": "Retrieve all groups from the system"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Admins\",\n    \"description\": \"Administrator Group\",\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"member_count\": 2\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Developers\",\n    \"description\": \"Development Team\",\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"member_count\": 1\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Single Group",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/groups/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "groups", "1"]
+            },
+            "description": "Retrieve a specific group by ID with members"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Admins\",\n  \"description\": \"Administrator Group\",\n  \"created_at\": \"2026-02-17T10:30:00.000000\",\n  \"updated_at\": \"2026-02-17T10:30:00.000000\",\n  \"member_count\": 1,\n  \"members\": [\n    {\n      \"id\": 1,\n      \"username\": \"john\",\n      \"email\": \"john@example.com\",\n      \"is_enabled\": true,\n      \"created_at\": \"2026-02-17T10:30:00.000000\",\n      \"updated_at\": \"2026-02-17T10:30:00.000000\",\n      \"groups\": [\n        {\n          \"id\": 1,\n          \"name\": \"Admins\"\n        }\n      ]\n    }\n  ]\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups/999",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "999"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"Group not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Group",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"QA Engineers\",\n  \"description\": \"Quality Assurance Team\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/groups",
+              "host": ["{{base_url}}"],
+              "path": ["api", "groups"]
+            },
+            "description": "Create a new group"
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"QA Engineers\",\n  \"description\": \"Quality Assurance Team\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/groups",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": 3,\n  \"name\": \"QA Engineers\",\n  \"description\": \"Quality Assurance Team\",\n  \"created_at\": \"2026-02-17T10:30:00.000000\",\n  \"updated_at\": \"2026-02-17T10:30:00.000000\",\n  \"member_count\": 0\n}"
+            },
+            {
+              "name": "400 Bad Request - Missing Name",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"Only description\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/groups",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "body": "{\n  \"error\": \"Group name is required\"\n}"
+            },
+            {
+              "name": "409 Conflict - Duplicate Group Name",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Admins\",\n  \"description\": \"Another Admin Group\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/groups",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "body": "{\n  \"error\": \"Group already exists\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Group",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Senior Development Team\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/groups/2",
+              "host": ["{{base_url}}"],
+              "path": ["api", "groups", "2"]
+            },
+            "description": "Update group information"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"Senior Development Team\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/groups/2",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "2"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": 2,\n  \"name\": \"Developers\",\n  \"description\": \"Senior Development Team\",\n  \"created_at\": \"2026-02-17T10:30:00.000000\",\n  \"updated_at\": \"2026-02-17T10:31:00.000000\",\n  \"member_count\": 1\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"New Description\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/groups/999",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "999"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"Group not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Group",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/groups/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "groups", "1"]
+            },
+            "description": "Delete a group from the system"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"Group deleted successfully\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups/999",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "999"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"Group not found\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User-Group Relationships",
+      "item": [
+        {
+          "name": "Assign Group to User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/1/groups/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "groups", "1"]
+            },
+            "description": "Assign a group to a user"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1", "groups", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"Group assigned to user successfully\",\n  \"user\": {\n    \"id\": 1,\n    \"username\": \"john\",\n    \"email\": \"john@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"groups\": [\n      {\n        \"id\": 1,\n        \"name\": \"Admins\"\n      }\n    ]\n  }\n}"
+            },
+            {
+              "name": "404 User Not Found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/users/999/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "999", "groups", "1"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"User not found\"\n}"
+            },
+            {
+              "name": "409 Already Assigned",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1", "groups", "1"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "body": "{\n  \"error\": \"User already assigned to this group\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Remove Group from User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/1/groups/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "groups", "1"]
+            },
+            "description": "Remove a group from a user"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1", "groups", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"Group removed from user successfully\",\n  \"user\": {\n    \"id\": 1,\n    \"username\": \"john\",\n    \"email\": \"john@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"groups\": []\n  }\n}"
+            },
+            {
+              "name": "404 User Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/999/groups/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "999", "groups", "1"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get User's Groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/1/groups",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", "1", "groups"]
+            },
+            "description": "Get all groups assigned to a user"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/1/groups",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "1", "groups"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Admins\",\n    \"description\": \"Administrator Group\",\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"member_count\": 2\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Developers\",\n    \"description\": \"Development Team\",\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"member_count\": 1\n  }\n]"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/users/999/groups",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users", "999", "groups"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"User not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Group Members",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/groups/1/members",
+              "host": ["{{base_url}}"],
+              "path": ["api", "groups", "1", "members"]
+            },
+            "description": "Get all members (users) of a group"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups/1/members",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "1", "members"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "[\n  {\n    \"id\": 1,\n    \"username\": \"john\",\n    \"email\": \"john@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"groups\": [\n      {\n        \"id\": 1,\n        \"name\": \"Admins\"\n      }\n    ]\n  },\n  {\n    \"id\": 2,\n    \"username\": \"alice\",\n    \"email\": \"alice@example.com\",\n    \"is_enabled\": true,\n    \"created_at\": \"2026-02-17T10:30:00.000000\",\n    \"updated_at\": \"2026-02-17T10:30:00.000000\",\n    \"groups\": [\n      {\n        \"id\": 1,\n        \"name\": \"Admins\"\n      }\n    ]\n  }\n]"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/groups/999/members",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "groups", "999", "members"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "body": "{\n  \"error\": \"Group not found\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string",
+      "description": "Base URL for the API - Change this to your server URL if running on different host/port"
+    }
+  ]
+}
