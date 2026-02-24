@@ -163,6 +163,7 @@ def create_user():
     """Create a new user"""
     try:
         data = request.json
+        print(data)
         
         if not data or not data.get('username') or not data.get('email'):
             return jsonify({"error": "Username and email are required"}), 400
